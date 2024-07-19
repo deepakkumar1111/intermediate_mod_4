@@ -7,11 +7,12 @@ Contract Initialization
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-contract ERC20 {
 ```
 
+contract ERC20 {
+
 address mapping and structure initialization
-```
+
     address public immutable owner;
     uint public totalSupply;
     mapping (address => uint) public balanceOf;
@@ -27,6 +28,7 @@ address mapping and structure initialization
 
     // Mapping to track redeemed items for each user
     mapping(address => mapping(uint => bool)) public redeemedItems;
+    
 ```
 Event declaration
 ```
@@ -36,11 +38,14 @@ Event declaration
     // Event to log token transfers
     event Transfer(address indexed from, address indexed to, uint amount);
 ```
-Constructor creation```
+Constructor creation
+
+```
     constructor() {
         owner = msg.sender;
         totalSupply = 0;
     }
+    
 ```
 Owner privilage modifier
 ``` 
@@ -54,6 +59,7 @@ Token creation
     string public constant name = "Degen";
     string public constant symbol = "DGN";
     uint8 public constant decimals = 10;
+    
 ```
 Transfer function
 ```
@@ -66,14 +72,17 @@ Transfer function
         emit Transfer(msg.sender, recipient, amount);
         return true;
     }
+    
 ```
 Mint function
 ```
+
     function mint(address receiver, uint amount) external onlyOwner {
         balanceOf[receiver] += amount;
         totalSupply += amount;
         emit Transfer(address(0), receiver, amount);
     }
+    
 ```	
 Burn function
 ```
@@ -85,6 +94,7 @@ Burn function
 
         emit Transfer(msg.sender, address(0), amount);
     }
+    
 ```
 function to Add items to structure
 ```	
@@ -93,6 +103,7 @@ function to Add items to structure
         Item memory newItem = Item(itemCount, itemName, itemPrice);
         items[itemCount] = newItem;
     }
+    
 ```
 Get item function to print all the current items in the structure\
 ```
@@ -105,6 +116,7 @@ Get item function to print all the current items in the structure\
         
         return allItems;
     }
+    
  ```
 function to redeem items from the structure
 ``` 
@@ -125,5 +137,6 @@ function to redeem items from the structure
         emit ItemRedeemed(msg.sender, itemId, redeemedItem.itemName, redeemedItem.itemPrice);
     }
 }
+
 ```
 This concludes the smart contract code for the ETH-Intermedeate-Module-4🍀
