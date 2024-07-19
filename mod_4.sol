@@ -1,10 +1,9 @@
-// SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
 contract ERC20 {
     address public immutable owner;
     uint public totalSupply;
-    mapping (address => uint) public balanceOf;
+    mapping(address => uint) public balanceOf;
 
     struct Item {
         uint itemId;
@@ -27,6 +26,11 @@ contract ERC20 {
     constructor() {
         owner = msg.sender;
         totalSupply = 0;
+
+        // Initialize items in the constructor
+        _addItem("Sword", 100);
+        _addItem("Shield", 150);
+        _addItem("Potion", 50);
     }
 
     modifier onlyOwner {
@@ -64,6 +68,10 @@ contract ERC20 {
     }
     
     function addItem(string memory itemName, uint256 itemPrice) external onlyOwner {
+        _addItem(itemName, itemPrice);
+    }
+
+    function _addItem(string memory itemName, uint256 itemPrice) internal {
         itemCount++;
         Item memory newItem = Item(itemCount, itemName, itemPrice);
         items[itemCount] = newItem;
