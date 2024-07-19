@@ -1,18 +1,24 @@
-# ETH Intermideate Module-4
-### This Contract shows the implementation of the smart contract using the token named "Degen" with abbriviation as "DGN" overn the testnet of AVALANCHE named as fuji.
+# ETH Intermediate Module-4
 
-Contract Initialization
+This Solidity contract shows the implementation of a smart contract using the token named "Degen" with abbreviation "DGN" over the testnet of AVALANCHE named as Fuji.
 
-```
+## Description
+
+This project demonstrates an intermediate-level Solidity contract that includes functionalities such as minting, transferring, and burning tokens. It also includes a system for adding and redeeming items, showcasing how to implement more complex smart contract features. This contract serves as a practical example for developers aiming to build more advanced decentralized applications on the Ethereum blockchain.
+
+## Getting Started
+
+### Executing Program
+
+To run this program, you can use Remix, an online Solidity IDE. To get started, go to the Remix website at [Remix](https://remix.ethereum.org/).
+
+Once you are on the Remix website, create a new file by clicking on the "+" icon in the left-hand sidebar. Save the file with a .sol extension (e.g., IntermediateProject4.sol). Copy and paste the following code into the file:
+
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-```
-
 contract ERC20 {
-
-address mapping and structure initialization
-
     address public immutable owner;
     uint public totalSupply;
     mapping (address => uint) public balanceOf;
@@ -28,41 +34,27 @@ address mapping and structure initialization
 
     // Mapping to track redeemed items for each user
     mapping(address => mapping(uint => bool)) public redeemedItems;
-    
-```
-Event declaration
-```
+
     // Event to log item redemption
     event ItemRedeemed(address indexed user, uint indexed itemId, string itemName, uint itemPrice);
 
     // Event to log token transfers
     event Transfer(address indexed from, address indexed to, uint amount);
-```
-Constructor creation
 
-```
     constructor() {
         owner = msg.sender;
         totalSupply = 0;
     }
-    
-```
-Owner privilage modifier
-``` 
+
     modifier onlyOwner {
         require(msg.sender == owner, "Only the contract owner can execute this function");
         _;
     }
-```
-Token creation
-```
+
     string public constant name = "Degen";
     string public constant symbol = "DGN";
     uint8 public constant decimals = 10;
-    
-```
-Transfer function
-```
+
     function transfer(address recipient, uint amount) external returns (bool) {
         require(balanceOf[msg.sender] >= amount, "The balance is insufficient");
 
@@ -72,20 +64,13 @@ Transfer function
         emit Transfer(msg.sender, recipient, amount);
         return true;
     }
-    
-```
-Mint function
-```
 
     function mint(address receiver, uint amount) external onlyOwner {
         balanceOf[receiver] += amount;
         totalSupply += amount;
         emit Transfer(address(0), receiver, amount);
     }
-    
-```	
-Burn function
-```
+
     function burn(uint amount) external {
         require(amount > 0, "Amount should not be zero");
         require(balanceOf[msg.sender] >= amount, "The balance is insufficient");
@@ -94,19 +79,13 @@ Burn function
 
         emit Transfer(msg.sender, address(0), amount);
     }
-    
-```
-function to Add items to structure
-```	
+
     function addItem(string memory itemName, uint256 itemPrice) external onlyOwner {
         itemCount++;
         Item memory newItem = Item(itemCount, itemName, itemPrice);
         items[itemCount] = newItem;
     }
-    
-```
-Get item function to print all the current items in the structure\
-```
+
     function getItems() external view returns (Item[] memory) {
         Item[] memory allItems = new Item[](itemCount);
         
@@ -116,10 +95,7 @@ Get item function to print all the current items in the structure\
         
         return allItems;
     }
-    
- ```
-function to redeem items from the structure
-``` 
+
     function redeem(uint itemId) external {
         require(itemId > 0 && itemId <= itemCount, "Invalid item ID");
         Item memory redeemedItem = items[itemId];
@@ -138,5 +114,3 @@ function to redeem items from the structure
     }
 }
 
-```
-This concludes the smart contract code for the ETH-Intermedeate-Module-4🍀
