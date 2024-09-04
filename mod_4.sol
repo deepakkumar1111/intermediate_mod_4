@@ -28,9 +28,9 @@ contract ERC20 {
         totalSupply = 0;
 
         // Initialize items in the constructor
-        _addItem("Sword", 100);
-        _addItem("Shield", 150);
-        _addItem("Potion", 50);
+        addItem("Book", 10);    // Item ID 1
+        addItem("Pen", 5);      // Item ID 2
+        addItem("Laptop", 1000); // Item ID 3
     }
 
     modifier onlyOwner {
