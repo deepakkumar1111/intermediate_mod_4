@@ -49,9 +49,9 @@ contract ERC20 {
     constructor() {
         owner = msg.sender;
         totalSupply = 0;
-        _addItem("Sword", 100);
-        _addItem("Shield", 150);
-        _addItem("Potion", 50);
+        addItem("Book", 10);    
+        addItem("Pen", 5);      
+        addItem("Laptop", 1000); 
     }
 
     modifier onlyOwner {
